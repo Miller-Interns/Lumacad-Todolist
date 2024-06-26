@@ -1,25 +1,30 @@
 <script setup lang="ts">
-import TitleBox from '@/views/title-box.vue'
-import CreateCategory from './views/create-category.vue'
+import CreateCategory from './components/create-category.vue'
 import { RouterLink, RouterView } from 'vue-router'
+import TaskList from './components/task-list.vue'
 </script>
 
 <template>
-  <main>
-    <header>
-      <nav>
-        <RouterLink to="/">Title Screen</RouterLink>
-        <RouterLink to="/about">Todo List Screen</RouterLink>
-      </nav>
-      <RouterView />
-    </header>
-    <TitleBox />
-    <CreateCategory />
-  </main>
+  <header>
+    <div class="wrapper">
+      <CreateCategory />
+      <TaskList />
+    </div>
+  </header>
+  <main></main>
 </template>
 
-<style scoped>
-main {
+<style>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+}
+
+.wrapper {
+  width: 100%;
   background-color: purple;
+}
+
+main {
+  padding: 1em;
 }
 </style>

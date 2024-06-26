@@ -1,5 +1,4 @@
 <script lang="ts">
-import AboutView from './create-category.vue'
 
 export default {
   name: 'TitleBox',
@@ -36,6 +35,10 @@ export default {
   margin: auto;
   width: 50%;
   height: 200px;
+  top : 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   background-color: forestgreen;
   outline: 3px solid white;
   font-family: 'Georgia';

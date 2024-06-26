@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import TitleBox from '@/views/title-box.vue'
-import ListView from '@/views/task-list.vue'
+import TitleView from '@/views/title-view.vue'
+import TaskView from '@/views/task-view.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -8,20 +8,12 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: TitleBox
+      component: TitleView
     },
     {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/create-category.vue')
-    },
-    {
-      path: '/list',
-      name: 'list',
-      component: ListView
+      path: '/task',
+      name: 'task',
+      component: TaskView
     }
   ]
 })
