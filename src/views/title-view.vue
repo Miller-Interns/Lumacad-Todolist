@@ -1,9 +1,11 @@
-<script lang="ts">
-export default {
-  name: 'TitleView'
-}
+<script setup lang="ts">
+import TitleBox from '../components/title-box.vue'
 </script>
 
-<template>this is title view</template>
+<template>
+  <div>
+    <TitleBox />
+  </div>
+</template>
 
 <style scoped></style>

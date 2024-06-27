@@ -21,10 +21,11 @@ a,
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 2048px) {
   body {
+    padding-top: 24px;
     display: flex;
-    place-items: center;
+    place-items: top;
   }
 
   #app {

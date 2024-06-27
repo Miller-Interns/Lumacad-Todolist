@@ -1,9 +1,11 @@
-<script lang="ts">
-export default {
-  name: 'TaskView'
-}
+<script setup lang="ts">
+import TaskList from '../components/task-view-components/task-list.vue'
+import CreateCategory from '../components/task-view-components/create-category-panel.vue'
 </script>
 
-<template>this is task view</template>
-
-<style scoped></style>
+<template>
+  <main>
+    <CreateCategory />
+    <TaskList />
+  </main>
+</template>

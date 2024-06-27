@@ -1,18 +1,11 @@
 <script lang="ts">
-
 export default {
   name: 'TitleBox',
   components: {},
   data() {
     return {
       t: true,
-      title: true,
       titleName: 'ARK'
-    }
-  },
-  methods: {
-    close() {
-      this.$emit('close')
     }
   }
 }
@@ -21,10 +14,10 @@ export default {
 <template>
   <div class="title-box">
     <h1>{{ titleName }}</h1>
-    <div class="to-todo" v-on:mouseover="t = false" v-on:mouseleave="t = true" @click="close">
-      <h2 v-if="t">todo list</h2>
-      <h2 v-else>lets go</h2>
-    </div>
+    <RouterLink class="to-task" v-on:mouseover="t = false" v-on:mouseleave="t = true" to="/task">
+      <div v-if="t">todo list</div>
+      <div v-else>lets go</div>
+    </RouterLink>
   </div>
 </template>
 
@@ -35,7 +28,7 @@ export default {
   margin: auto;
   width: 50%;
   height: 200px;
-  top : 0;
+  top: 0;
   right: 0;
   bottom: 0;
   left: 0;
@@ -54,12 +47,19 @@ export default {
   margin-bottom: 50px;
 }
 
-.to-todo {
+.to-task {
+  display: flex;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: visible;
   margin: auto;
-  width: 50%;
+  width: 100px;
   height: 50px;
-  border: 3px solid white;
+  font-size: 25px;
   padding: 5px;
+  outline: 3px solid white;
   background-color: green;
 }
 </style>
