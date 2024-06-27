@@ -13,7 +13,7 @@ import { RouterView } from 'vue-router'
   width: 48px;
   height: 48px;
   border-radius: 25px;
-  background-color: green;
+  border: 3px solid black;
   background-size: contain;
   place-items: center;
 }

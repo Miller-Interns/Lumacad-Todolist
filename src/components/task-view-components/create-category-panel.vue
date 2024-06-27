@@ -1,20 +1,28 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import AddIcon from '../icons/add-icon.vue'
 import SetCategory from './set-category.vue'
-import CreateCategory from '../scripts/create-category'
+
+const show = ref(false)
+
+const set = () => {
+  show.value = true
+}
+const unset = () => {
+  show.value = false
+}
 </script>
 
 <template>
   <div class="category">
     <div id="container">
       <h1>Create Category</h1>
-      <div id="add">
-        <AddIcon />
-      </div>
+      <div id="add" v-if="!show"><AddIcon @click="set" /></div>
+      <div id="cancel" v-else><AddIcon @click="unset" /></div>
     </div>
   </div>
 
-  <div id="set-category">
+  <div id="set-category" v-if="show">
     <SetCategory />
   </div>
 </template>
@@ -37,7 +45,7 @@ import CreateCategory from '../scripts/create-category'
   overflow: hidden;
   display: block;
   margin-top: 1rem;
-  border: 3px solid white;
+  border: 3px solid black;
   background-color: green;
   padding: 24px;
 }
@@ -54,6 +62,15 @@ h1 {
 }
 
 #add {
+  height: 48px;
+  width: 48px;
   float: right;
+}
+
+#cancel {
+  height: 48px;
+  width: 48px;
+  float: right;
+  rotate: 45deg;
 }
 </style>

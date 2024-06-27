@@ -1,9 +1,3 @@
 <template>
-  <svg class="icon" id="computer"></svg>
+  <svg class="icon" style="background-image: url('https://www.svgrepo.com/show/510951/desktop-tower.svg');"></svg>
 </template>
-
-<style>
-#computer {
-  background-image: url('https://www.svgrepo.com/show/506814/computer.svg');
-}
-</style>

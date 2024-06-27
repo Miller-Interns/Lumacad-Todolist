@@ -1,15 +1,12 @@
-<script lang="ts"></script>
+<script setup lang="ts"></script>
 
 <template>
   <div class="item">
-    <i>
-      <slot name="icon"></slot>
-    </i>
-    <div class="details">
+    <div id="heading">
+      <slot name="icon"> </slot>
       <h3>
-        <slot name="heading"></slot>
+        <slot name="category"></slot>
       </h3>
-      <slot></slot>
     </div>
   </div>
 </template>
@@ -18,17 +15,23 @@
 @media (min-width: 240px) {
   .item {
     padding: 24px;
-    width: 240px;
+    width: auto;
     height: 100%;
-    display: inline-;
+    display: inline-flex;
     position: relative;
     background-color: purple;
     border: 3px solid white;
     margin: 1em;
   }
 
-  i {
-    background-color: purple;
+  #heading{
+    display: flex;
   }
+
+  h3{
+    margin-left: 24px;
+    font-size: 24px;
+  }
+
 }
 </style>
