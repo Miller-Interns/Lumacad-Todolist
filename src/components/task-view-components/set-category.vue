@@ -1,24 +1,35 @@
 <script setup>
-import AddIcon from '../icons/icon-add.vue'
+import ComputerIcon from '../icons/computer-icon.vue'
+import HomeIcon from '../icons/add-icon.vue'
+import SchoolIcon from '../icons/add-icon.vue'
+import GroceryIcon from '../icons/add-icon.vue'
+import ProgrammingIcon from '../icons/add-icon.vue'
+import CustomIcon from '../icons/add-icon.vue'
 </script>
 
 <template>
-  <div class="category">
+  <div class="set">
     <div id="container">
-      <h1>Select Icon</h1>
-      <button id="create-category" v-on:click="console.log('test')"><AddIcon /></button>
+      <div>
+        <h1>Select Icon</h1>
+      </div>
+      <div><p>test</p></div>
+      <div class="icon-container">
+        <ComputerIcon /> computer <HomeIcon /> home <SchoolIcon /> school <GroceryIcon /> grocery
+        <ProgrammingIcon /> programming <CustomIcon /> custom
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
-.category {
-  position: sticky;
+.set #container {
+  margin-top: -4rem;
+}
+
+.icon-container {
   display: block;
-  width: 800px;
-  height: 1000px;
-  float: top;
-  border: 3px solid white;
-  background-color: green;
+  margin-top: 4em;
+  float: none;
 }
 </style>

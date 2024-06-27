@@ -1,42 +1,51 @@
-<script setup>
-import ComputerIcon from '../icons/icon-add.vue'
-import HomeIcon from '../icons/icon-add.vue'
-import SchoolIcon from '../icons/icon-add.vue'
-import GroceryIcon from '../icons/icon-add.vue'
-import ProgrammingIcon from '../icons/icon-add.vue'
-import CustomIcon from '../icons/icon-add.vue'
+<script setup lang="ts">
+import AddIcon from '../icons/add-icon.vue'
 import SetCategory from './set-category.vue'
-const set = false
+import CreateCategory from '../scripts/create-category'
 </script>
 
 <template>
   <div class="category">
     <div id="container">
       <h1>Create Category</h1>
-      <i class="icon" id="add-button" @click="set = true"></i>
+      <div id="add">
+        <AddIcon />
+      </div>
     </div>
-    <div class="set-category" v-if="set">
-      <SetCategory />
-    </div>
+  </div>
+
+  <div id="set-category">
+    <SetCategory />
   </div>
 </template>
 
-<style scoped>
+<style>
 .category {
-  position: sticky;
+  position: relative;
   display: block;
   width: 100%;
   height: 100px;
   float: top;
   border: 3px solid white;
   background-color: green;
+  padding: 24px;
+}
+
+#set-category {
+  width: inherit;
+  position: relative;
+  overflow: hidden;
+  display: block;
+  margin-top: 1rem;
+  border: 3px solid white;
+  background-color: green;
+  padding: 24px;
 }
 
 #container {
   position: relative;
   top: 50%;
   margin-top: -25px;
-  padding: 0px 25px;
 }
 
 h1 {
@@ -44,19 +53,7 @@ h1 {
   font-weight: bold;
 }
 
-.icon {
+#add {
   float: right;
-  width: 48px;
-  height: 48px;
-  border-radius: 25px;
-  background-color: green;
-  background-image: url('https://www.svgrepo.com/show/524226/add-circle.svg');
-  background-size: contain;
-  place-items: center;
-}
-
-.icon:hover {
-  background-color: white;
-  opacity: 50%;
 }
 </style>

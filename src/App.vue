@@ -8,4 +8,17 @@ import { RouterView } from 'vue-router'
   </main>
 </template>
 
-<style></style>
+<style>
+.icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 25px;
+  background-color: green;
+  background-size: contain;
+  place-items: center;
+}
+
+.icon:hover {
+  background-color: white;
+}
+</style>

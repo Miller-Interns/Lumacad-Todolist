@@ -1,3 +1,5 @@
+<script lang="ts"></script>
+
 <template>
   <div class="item">
     <i>
@@ -13,27 +15,20 @@
 </template>
 
 <style scoped>
-.item {
-  margin-top: 2rem;
-  padding: 24px;
-  width: 240px;
-  height: 100%;
-  display: inline-grid;
-  position: relative;
-  background-color: purple;
-  border: 3px solid white;
-}
+@media (min-width: 240px) {
+  .item {
+    padding: 24px;
+    width: 240px;
+    height: 100%;
+    display: inline-;
+    position: relative;
+    background-color: purple;
+    border: 3px solid white;
+    margin: 1em;
+  }
 
-.details h3 {
-}
-
-i {
-  display: inline-flex;
-  place-items: center;
-  place-content: center;
-  width: 32px;
-  height: 32px;
-
-  color: var(--color-text);
+  i {
+    background-color: purple;
+  }
 }
 </style>
