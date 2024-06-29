@@ -45,9 +45,11 @@ const unset = () => {
   overflow: hidden;
   display: block;
   margin-top: 1rem;
-  border: 3px solid black;
+  border: 3px solid white;
   background-color: green;
   padding: 24px;
+  overflow: hidden;
+  height: auto;
 }
 
 #container {

@@ -19,6 +19,12 @@ import { RouterView } from 'vue-router'
 }
 
 .icon:hover {
+  cursor: pointer;
+  background-color: white;
+  transition: 0.5s;
+}
+
+.icon:checked {
   background-color: white;
 }
 </style>

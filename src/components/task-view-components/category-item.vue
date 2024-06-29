@@ -8,30 +8,38 @@
         <slot name="category"></slot>
       </h3>
     </div>
+    <p id="details">
+      <slot name="tasks"></slot>
+    </p>
   </div>
 </template>
 
 <style scoped>
-@media (min-width: 240px) {
+@media (min-width: 100px) {
   .item {
     padding: 24px;
     width: auto;
-    height: 100%;
-    display: inline-flex;
+    height: 200px;
+    display: block;
     position: relative;
     background-color: purple;
     border: 3px solid white;
     margin: 1em;
   }
 
-  #heading{
+  #heading {
     display: flex;
+    height: 48px;
   }
 
-  h3{
+  #details {
+    display: block;
+    height: 48px;
+  }
+
+  h3 {
     margin-left: 24px;
     font-size: 24px;
   }
-
 }
 </style>

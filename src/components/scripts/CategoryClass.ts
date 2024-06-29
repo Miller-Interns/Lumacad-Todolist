@@ -1,11 +1,14 @@
-export class CategoryClass {
-  constructor(public name: string, public tasks: Task[]) {
-    this.name = name;
-  }
-}
+import { VueElement } from 'vue'
+import { ITask } from './ITask'
 
-export class Task{
-  constructor(public name: string) {
-    this.name = name;
+export default class CategoryClass {
+  id = null
+  icon = VueElement
+  title = ''
+
+  constructor(id, icon, title) {
+    this.id = id
+    this.icon = icon
+    this.title = title
   }
 }
