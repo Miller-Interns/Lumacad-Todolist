@@ -6,7 +6,7 @@ export default {}
   <div class="container">
     <div class="content">
       <div id="heading">
-        <slot name="icon"> </slot>
+        <!-- <slot name="icon"> </slot> -->
         <h3>
           <slot name="category"></slot>
         </h3>
@@ -23,24 +23,26 @@ export default {}
   .container {
     padding: 1rem;
     width: 100%;
-    background-color: purple;
-    border: 3px solid white;
+    border: 3px solid #9bcf53;
+    background-color: #bfea7c;
     margin: 1em;
+    resize: both;
+    overflow: auto;
   }
 
-  .details{
+  #heading {
+    border: 3px solid #9bcf53;
+  }
+
+  .details {
     display: grid;
     grid-template-rows: 1fr;
     transition: grid-template-rows 1s;
   }
 
-
-  .details > div{
+  .details > div {
     overflow: none;
   }
-
-
-
 
   #heading {
     display: flex;
@@ -53,7 +55,7 @@ export default {}
   }
 
   h3 {
-    margin-left: 24px;
+    margin-left: 0px;
     font-size: 24px;
   }
 }

@@ -6,12 +6,8 @@ import CreateCategory from '../components/task-view-components/create-category-p
 <template>
   <main>
     <CreateCategory />
-    <TaskList class="task-list" id="list"> </TaskList>
+    <TaskList> </TaskList>
   </main>
 </template>
 
-<style scoped>
-.task-list {
-  margin-top: 2rem;
-}
-</style>
+<style scoped></style>

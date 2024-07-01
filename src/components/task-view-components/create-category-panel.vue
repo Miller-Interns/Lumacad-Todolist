@@ -1,24 +1,26 @@
-<script setup lang="ts">
-import { ref, watch } from 'vue'
+<script lang="ts">
+import { ref } from 'vue'
 import AddIcon from '../icons/add-icon.vue'
 import SetCategory from './set-category.vue'
 
-const isShown = ref(false)
+export const isShown = ref(false)
 
-const set = () => {
-  isShown.value = !isShown.value
+export default {
+  components: {
+    AddIcon,
+    SetCategory
+  },
+  setup() {
+    const set = () => (isShown.value = !isShown.value)
+    console.log(isShown.value)
+    return {
+      AddIcon,
+      SetCategory,
+      set,
+      isShown
+    }
+  }
 }
-const Shown = window.localStorage.getItem('isShown');
-
-if (Shown)
-{ 
-  isShown.value = JSON.parse(Shown);
-}
-
-watch(isShown, (val)=>{
-  window.localStorage.setItem('isShown', JSON.stringify(val))
-})
-
 </script>
 
 <template>
@@ -26,9 +28,9 @@ watch(isShown, (val)=>{
     <div id="container">
       <h1>Create Category</h1>
       <div id="add" class="add-icon" v-bind:aria-expanded="isShown ? 'true' : 'false'">
-        <AddIcon @click="set"/>
+        <AddIcon @click="set" />
       </div>
-    </div>  
+    </div>
   </div>
 
   <div id="set-category" v-if="isShown">
@@ -43,8 +45,9 @@ watch(isShown, (val)=>{
   width: 100%;
   height: 100px;
   float: top;
-  border: 3px solid white;
-  background-color: green;
+  border: 3px solid #9bcf53;
+  border-radius: 25px;
+  background-color: #bfea7c;
   padding: 24px;
 }
 
@@ -53,12 +56,14 @@ watch(isShown, (val)=>{
   position: relative;
   overflow: hidden;
   display: block;
+  border: 3px solid #9bcf53;
+  border-radius: 25px;
+  background-color: #bfea7c;
   margin-top: 1rem;
-  border: 3px solid white;
-  background-color: green;
   padding: 24px;
   overflow: hidden;
   height: auto;
+  transition: transform 2s;
 }
 
 #container {
@@ -72,16 +77,16 @@ h1 {
   font-weight: bold;
 }
 
-.add-icon{
+.add-icon {
   width: 48px;
-  height:48px;
+  height: 48px;
   display: inline;
   float: right;
   rotate: 90deg;
   transition: transform 500ms;
 }
 
-.add-icon[aria-expanded="true"]{
+.add-icon[aria-expanded='true'] {
   transform: rotate(45deg);
 }
 </style>

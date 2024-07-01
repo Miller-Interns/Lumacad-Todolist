@@ -1,12 +1,9 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
-
 </script>
 
 <template>
-  <main>
-    <RouterView />
-  </main>
+  <main><RouterView /></main>
 </template>
 
 <style>
@@ -14,7 +11,7 @@ import { RouterView } from 'vue-router'
   width: 48px;
   height: 48px;
   border-radius: 25px;
-  border: 3px solid black;
+  border: 3px solid #416d19;
   background-size: contain;
   place-items: center;
 }

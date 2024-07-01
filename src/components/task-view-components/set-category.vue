@@ -5,7 +5,11 @@ import SchoolIcon from '../icons/school-icon.vue'
 import GroceryIcon from '../icons/grocery-icon.vue'
 import ProgrammingIcon from '../icons/programming-icon.vue'
 import CustomIcon from '../icons/custom-icon.vue'
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
+import { addCategory } from '../../composables/categories'
+import { isShown } from './create-category-panel.vue'
+
+const categoryTitle = ''
 
 export default defineComponent({
   components: {
@@ -17,7 +21,7 @@ export default defineComponent({
     CustomIcon
   },
   setup() {
-    return {}
+    return { addCategory, categoryTitle, isShown }
   }
 })
 </script>
@@ -27,45 +31,61 @@ export default defineComponent({
     <div id="container">
       <div id="wrapper">
         <h1>Category name:</h1>
-        <input type="text" id="category-name" name="category-title" maxlength="16" />
+        <input
+          type="text"
+          id="category-name"
+          v-model="categoryTitle"
+          maxlength="16"
+          placeholder="New category"
+        />
       </div>
+      <!--
       <div id="wrapper">
         <h1 id="select-icon-text">Select icon</h1>
         <div id="icon-container">
           <label>
-            <input type="radio" name="category-icon" value="computer" checked />
-            <ComputerIcon />
+            <input type="radio" name="category-icon" value="computer" />
+            <ComputerIcon aria-selected="false" />
           </label>
           <label>
-            <input type="radio" name="category-icon" value="home" checked />
-            <HomeIcon />
+            <input type="radio" name="category-icon" value="home" />
+            <HomeIcon aria-selected="false" />
           </label>
 
           <label>
             <input type="radio" name="category-icon" value="school" checked />
-            <SchoolIcon />
+            <SchoolIcon aria-selected="false" />
           </label>
 
           <label>
-            <input type="radio" name="category-icon" value="grocery" checked />
-            <GroceryIcon />
+            <input type="radio" name="category-icon" value="grocery" />
+            <GroceryIcon aria-selected="false" />
           </label>
 
           <label>
-            <input type="radio" name="category-icon" value="programming" checked />
-            <ProgrammingIcon />
+            <input type="radio" name="category-icon" value="programming" />
+            <ProgrammingIcon aria-selected="false" />
           </label>
 
           <label>
-            <input type="radio" name="category-icon" value="custom" checked />
-            <CustomIcon />
+            <input type="radio" name="category-icon" value="custom" />
+            <CustomIcon aria-selected="false" />
           </label>
         </div>
-      </div>
+      </div>   -->
     </div>
     <label>
-      <div id="add-button">Create</div>
-
+      <div
+        id="add-button"
+        @click="
+          () => {
+            addCategory(categoryTitle, color)
+            isShown.value = false
+          }
+        "
+      >
+        Create
+      </div>
     </label>
   </div>
 </template>
@@ -76,8 +96,8 @@ export default defineComponent({
   padding: 0;
 }
 
-input[type='radio']:checked {
-  background-color: white;
+input[type='radio'] {
+  appearance: none;
 }
 
 .set #container {
@@ -97,11 +117,12 @@ input[type='radio']:checked {
   font-size: 32px;
   margin-left: 24px;
   position: relative;
-  border: black;
+  color: #416d19;
+  border: 3px solid #9bcf53;
+  background-color: #bfea7c;
 }
 #select-icon-text {
   height: 48px;
-  padding-top: 24px;
   width: 100%;
   margin-right: 24px;
 }
@@ -110,8 +131,7 @@ input[type='radio']:checked {
   margin-top: 1em;
 }
 .icon {
-  margin-top: 24px;
-  margin-right: 24px;
+  margin: 1em;
 }
 #add-button {
   width: 100px;
@@ -122,13 +142,14 @@ input[type='radio']:checked {
   text-align: center;
   font-size: 24px;
   right: 0;
-  border: 3px solid black;
-  background-color: green;
+  border: 3px solid #9bcf53;
+  background-color: #bfea7c;
   transition: 0.5s;
 }
 
 #add-button:hover {
   background-color: white;
   opacity: 75%;
+  cursor: pointer;
 }
 </style>

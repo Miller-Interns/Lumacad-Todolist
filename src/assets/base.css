@@ -4,7 +4,7 @@
   --vt-c-white-soft: #f8f8f8;
   --vt-c-white-mute: #f2f2f2;
 
-  --vt-c-black: #181818;
+  --vt-c-black: #fff67e;
   --vt-c-black-soft: #222222;
   --vt-c-black-mute: #282828;
 
@@ -58,15 +58,16 @@
   font-weight: normal;
 }
 
-input[type="text"] {
-  color: var(--color-text);
-  line-height: 1.6
+input[type='text'] {
+  color: #416d19;
+  line-height: 1.6;
 }
 
-body{
+body {
   min-height: 100vh;
-  color: var(--color-text);
-  background: var(--color-background);
+  color: #416d19;
+  background: #fff67e;
+
   transition:
     color 0.5s,
     background-color 0.5s;
@@ -84,7 +85,7 @@ body{
     'Droid Sans',
     'Helvetica Neue',
     sans-serif;
-  font-size: 15px;
+  font-size: 16px;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

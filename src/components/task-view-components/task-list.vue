@@ -1,71 +1,46 @@
 <script lang="ts">
-import CategoryItem from '../task-view-components/category-item.vue'
+import { defineComponent, watch } from 'vue'
+import CategoryItem from './category-item.vue'
 import CustomIcon from '../icons/custom-icon.vue'
-import { Component, defineComponent, ref, watch } from 'vue'
-import { format } from 'path'
+import DeleteIcon from '../icons/delete-icon.vue'
 
-interface ListCategory {
-  title: string
-  icon?: Component
-  Tasks?: ListTask[]
-}
-
-interface ListTask {
-  text: string
-  isCompleted: boolean
-}
+import Categories, {
+  categories,
+  addTask,
+  deleteCategory,
+  deleteTask
+} from '../../composables/categories'
 
 export default defineComponent({
-  components: {
-    CategoryItem,
-    CustomIcon
+  mixins: [Categories],
+  data() {
+    return {
+      drag: false
+    }
   },
   setup() {
-    
+    const categoryForm = window.localStorage.getItem('categories')
 
-    const tasks = ref<ListTask[]>([
-      { text: 'Item 1', isCompleted: true },
-      { text: 'Item 2', isCompleted: true },
-      { text: 'Item 3', isCompleted: true },
-      { text: 'Item 4', isCompleted: true },
-      { text: 'Item 5', isCompleted: true },
-      { text: 'Item 6', isCompleted: true }
-    ])
-
-    const categories = ref<ListCategory[]>([
-      { title: 'Category 1', Tasks: tasks.value },
-      { title: 'Category 2' },
-      { title: 'Category 3' }
-    ])
-
-    const addTask = (index: number) => {
-      categories.value[index].Tasks?.push({ text: '', isCompleted: false })
+    if (categoryForm) {
+      categories.value = JSON.parse(categoryForm)
     }
 
-    const updateItem = (index: number, taskIndex: number, text: string) => {
-      tasks.value[index].text = text
-    }
-
-    const addCategory = (category: ListCategory) => {
-      categories.value.push(category)
-    }
-
-    const categoryForm = window.localStorage.getItem("categories")
-
-    if (categoryForm){
-      categories.value = JSON.parse(categoryForm);
-    }
-
-    watch(categories, (val) =>{
-      window.localStorage.setItem('categories', JSON.stringify(val));
-    }, {deep: true})
-
-    return {
-      tasks,
-      addTask,
-      updateItem,
+    watch(
       categories,
-      addCategory
+      (val) => {
+        window.localStorage.setItem('categories', JSON.stringify(val))
+      },
+      { deep: true }
+    )
+    return {
+      categories,
+      CategoryItem,
+      CustomIcon,
+      HomeIcon,
+      DeleteIcon,
+      addTask,
+      deleteCategory,
+      deleteTask
     }
   }
 })
@@ -73,20 +48,31 @@ export default defineComponent({
 
 <template>
   <div class="category-item" v-for="(category, index) in categories" :key="index">
-    <CategoryItem>
-      <template #icon> <CustomIcon /></template>
+    <CategoryItem v-model="categories[index]">
+      <!-- <template #icon> <CustomIcon /></template> -->
       <template #category>
-        {{ category.title }}
+        <input
+          type="text"
+          :id="'category_' + categories[index].title"
+          v-bind:style="{
+            background: 'transparent',
+            border: 'none',
+            'font-size': '24px',
+            'font-weight': 'bold',
+            width: '80%',
+            bottom: '0px'
+          }"
+          v-model="categories[index].title"
+          maxLength="16"
+        />
+        <button @click="deleteCategory(category)" id="delete">
+          <h3>❌</h3>
+        </button>
       </template>
       <template #tasks>
-        <ul>
-          <li v-for="(task, taskIndex) in category.Tasks" :key="taskIndex">
-            <input
-              type="checkbox"
-              :id="'task_' + taskIndex"
-              v-model="task.isCompleted"
-              @input="updateItem(taskIndex, index, task.text)"
-            />
+        <ul class="no-bullets">
+          <li v-for="(task, taskIndex) in categories[index].Tasks" :key="taskIndex">
+            <input type="checkbox" :id="'task_' + taskIndex" v-model="task.isCompleted" />
             <input
               type="text"
               :for="'item_' + taskIndex"
@@ -98,10 +84,21 @@ export default defineComponent({
               class="task"
               v-model="task.text"
               placeholder="Add task..."
+              maxLength="24"
             />
+            <button
+              @click="deleteTask(categories[index].Tasks, taskIndex)"
+              v-if="categories[index].Tasks.length > 1"
+              id="delete"
+            >
+              ❌
+            </button>
           </li>
           <div>
-            <button @click="addTask(index)">
+            <button
+              @click="addTask(categories[index])"
+              v-if="categories[index].Tasks[categories[index].Tasks.length - 1].text != ''"
+            >
               <h3>+</h3>
             </button>
           </div>
@@ -112,19 +109,42 @@ export default defineComponent({
 </template>
 
 <style scoped>
+input[type='checkbox'] {
+  cursor: pointer;
+}
+#delete {
+  place-content: center;
+  float: right;
+  width: 28px;
+  height: 28px;
+  background: transparent;
+  border: none;
+}
+
+#delete .icon {
+  width: 28px;
+  height: 28px;
+}
+
+.no-bullets {
+  list-style-type: none;
+  margin-left: -24px;
+}
 .category-item {
   display: inline-flex;
+  width: inherit;
 }
 
 .task {
   border: none;
   background: transparent;
+  width: 80%;
 }
 
-input[type="text"]
-{
+input[type='text'] {
   margin-left: 1em;
   font-size: 16px;
+  width: 75%;
 }
 
 h3 {
