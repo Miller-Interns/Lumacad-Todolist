@@ -65,7 +65,7 @@ export default defineComponent({
     </div>
     <label>
       <div id="add-button">Create</div>
-      >
+
     </label>
   </div>
 </template>

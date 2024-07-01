@@ -1,28 +1,37 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import AddIcon from '../icons/add-icon.vue'
 import SetCategory from './set-category.vue'
 
-const show = ref(false)
+const isShown = ref(false)
 
 const set = () => {
-  show.value = true
+  isShown.value = !isShown.value
 }
-const unset = () => {
-  show.value = false
+const Shown = window.localStorage.getItem('isShown');
+
+if (Shown)
+{ 
+  isShown.value = JSON.parse(Shown);
 }
+
+watch(isShown, (val)=>{
+  window.localStorage.setItem('isShown', JSON.stringify(val))
+})
+
 </script>
 
 <template>
   <div class="category">
     <div id="container">
       <h1>Create Category</h1>
-      <div id="add" v-if="!show"><AddIcon @click="set" /></div>
-      <div id="cancel" v-else><AddIcon @click="unset" /></div>
-    </div>
+      <div id="add" class="add-icon" v-bind:aria-expanded="isShown ? 'true' : 'false'">
+        <AddIcon @click="set"/>
+      </div>
+    </div>  
   </div>
 
-  <div id="set-category" v-if="show">
+  <div id="set-category" v-if="isShown">
     <SetCategory />
   </div>
 </template>
@@ -63,16 +72,16 @@ h1 {
   font-weight: bold;
 }
 
-#add {
-  height: 48px;
+.add-icon{
   width: 48px;
+  height:48px;
+  display: inline;
   float: right;
+  rotate: 90deg;
+  transition: transform 500ms;
 }
 
-#cancel {
-  height: 48px;
-  width: 48px;
-  float: right;
-  rotate: 45deg;
+.add-icon[aria-expanded="true"]{
+  transform: rotate(45deg);
 }
 </style>

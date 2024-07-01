@@ -1,31 +1,46 @@
-<script setup lang="ts"></script>
+<script lang="ts">
+export default {}
+</script>
 
 <template>
-  <div class="item">
-    <div id="heading">
-      <slot name="icon"> </slot>
-      <h3>
-        <slot name="category"></slot>
-      </h3>
+  <div class="container">
+    <div class="content">
+      <div id="heading">
+        <slot name="icon"> </slot>
+        <h3>
+          <slot name="category"></slot>
+        </h3>
+      </div>
+      <p class="details">
+        <slot name="tasks"></slot>
+      </p>
     </div>
-    <p id="details">
-      <slot name="tasks"></slot>
-    </p>
   </div>
 </template>
 
 <style scoped>
 @media (min-width: 100px) {
-  .item {
-    padding: 24px;
-    width: auto;
-    height: 200px;
-    display: block;
-    position: relative;
+  .container {
+    padding: 1rem;
+    width: 100%;
     background-color: purple;
     border: 3px solid white;
     margin: 1em;
   }
+
+  .details{
+    display: grid;
+    grid-template-rows: 1fr;
+    transition: grid-template-rows 1s;
+  }
+
+
+  .details > div{
+    overflow: none;
+  }
+
+
+
 
   #heading {
     display: flex;

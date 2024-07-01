@@ -58,7 +58,12 @@
   font-weight: normal;
 }
 
-body {
+input[type="text"] {
+  color: var(--color-text);
+  line-height: 1.6
+}
+
+body{
   min-height: 100vh;
   color: var(--color-text);
   background: var(--color-background);
