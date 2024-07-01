@@ -19,16 +19,19 @@ export default {}
 </template>
 
 <style scoped>
-@media (min-width: 100px) {
+
   .container {
     padding: 1rem;
-    width: 100%;
+    min-width: 300px;
+    min-height: 100px;
+    width: 300px;
+    height: 120px;
     border: 3px solid #9bcf53;
     background-color: #bfea7c;
     margin: 1em;
     resize: both;
     overflow: auto;
-  }
+  
 
   #heading {
     border: 3px solid #9bcf53;

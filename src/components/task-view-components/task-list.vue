@@ -36,7 +36,6 @@ export default defineComponent({
       categories,
       CategoryItem,
       CustomIcon,
-      HomeIcon,
       DeleteIcon,
       addTask,
       deleteCategory,
