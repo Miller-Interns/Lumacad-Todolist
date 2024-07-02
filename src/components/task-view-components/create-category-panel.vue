@@ -12,7 +12,6 @@ export default {
   },
   setup() {
     const set = () => (isShown.value = !isShown.value)
-    console.log(isShown.value)
     return {
       AddIcon,
       SetCategory,

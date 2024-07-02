@@ -1,17 +1,12 @@
-import CategoryItem from '../components/task-view-components/category-item.vue'
-import CustomIcon from '../components/icons/custom-icon.vue'
 import { ref } from 'vue'
-import { IListCategory, IListTask } from './interfaces'
+import ICategory from '../interfaces/ICategory'
+import ITask from '../interfaces/ITask'
 
-export const tasks = ref<IListTask[]>([])
+export const tasks = ref<ITask[]>([])
 
-export const categories = ref<IListCategory[]>([])
+export const categories = ref<ICategory[]>([])
 
 export default {
-  components: {
-    CategoryItem,
-    CustomIcon
-  },
   setup() {
     return {
       tasks,
@@ -20,7 +15,7 @@ export default {
   }
 }
 
-export function addTask(category: IListCategory) {
+export function addTask(category: ICategory) {
   category.Tasks?.push({ text: '', isCompleted: false })
   console.log(category.Tasks)
 }
@@ -31,11 +26,11 @@ export function addCategory(title: string) {
   else categories.value.push({ title, Tasks: [{ text: '', isCompleted: false }] })
 }
 
-export function deleteCategory(category: IListCategory) {
-  const filtersList = this.categories.filter((c: IListCategory) => c !== category)
+export function deleteCategory(category: ICategory) {
+  const filtersList = this.categories.filter((c: ICategory) => c !== category)
   this.categories = filtersList
 }
 
-export function deleteTask(task: IListTask[], taskIndex: number) {
+export function deleteTask(task: ITask[], taskIndex: number) {
   task.splice(taskIndex, 1)
 }

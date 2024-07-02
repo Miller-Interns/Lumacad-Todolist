@@ -1,29 +1,29 @@
-<script language="ts">
-import ComputerIcon from '../icons/computer-icon.vue'
-import HomeIcon from '../icons/home-icon.vue'
-import SchoolIcon from '../icons/school-icon.vue'
-import GroceryIcon from '../icons/grocery-icon.vue'
-import ProgrammingIcon from '../icons/programming-icon.vue'
-import CustomIcon from '../icons/custom-icon.vue'
-import { defineComponent, ref } from 'vue'
+<script lang="ts">
+// import ComputerIcon from '../icons/computer-icon.vue'
+// import HomeIcon from '../icons/home-icon.vue'
+// import SchoolIcon from '../icons/school-icon.vue'
+// import GroceryIcon from '../icons/grocery-icon.vue'
+// import ProgrammingIcon from '../icons/programming-icon.vue'
+// import CustomIcon from '../icons/custom-icon.vue'
+// import { defineComponent, ref } from 'vue'
 import { addCategory } from '../../composables/categories'
 import { isShown } from './create-category-panel.vue'
 
 const categoryTitle = ''
 
-export default defineComponent({
-  components: {
-    ComputerIcon,
-    HomeIcon,
-    SchoolIcon,
-    GroceryIcon,
-    ProgrammingIcon,
-    CustomIcon
-  },
+export default {
+  // components: {
+  //   ComputerIcon,
+  //   HomeIcon,
+  //   SchoolIcon,
+  //   GroceryIcon,
+  //   ProgrammingIcon,
+  //   CustomIcon
+  // },
   setup() {
     return { addCategory, categoryTitle, isShown }
   }
-})
+}
 </script>
 
 <template>
@@ -79,8 +79,8 @@ export default defineComponent({
         id="add-button"
         @click="
           () => {
-            addCategory(categoryTitle, color)
-            isShown.value = false
+            addCategory(categoryTitle)
+            isShown = false
           }
         "
       >
