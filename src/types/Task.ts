@@ -1,4 +1,4 @@
-export default interface ITask {
+export type Task = {
   text: string
   isCompleted: boolean
 }
