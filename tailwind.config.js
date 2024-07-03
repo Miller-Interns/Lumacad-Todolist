@@ -6,7 +6,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        pinya: "#FFFFFF",
+        black: "#000000",
         sgreen: "#BFEA7C",
         mgreen: "#9BCF53",
         dgreen: "#416D19",
