@@ -8,8 +8,13 @@ export const categories = ref<Category[]>([])
 
 export function addCategory(title: string) {
   if (title == '')
-    categories.value.push({ title: 'New category', Tasks: [{ text: '', isCompleted: false }] })
-  else categories.value.push({ title, Tasks: [{ text: '', isCompleted: false }] })
+    categories.value.push({
+      title: 'New category',
+      Tasks: [{ text: '', isCompleted: false }],
+      isDeleting: false
+    })
+  else
+    categories.value.push({ title, Tasks: [{ text: '', isCompleted: false }], isDeleting: false })
 }
 
 export function deleteCategory(category: Category) {
@@ -22,5 +27,6 @@ export function addTask(category: Category) {
   console.log(category.Tasks)
 }
 export function deleteTask(task: Task[], taskIndex: number) {
-  task.splice(taskIndex, 1)
+  if (task.length == 1) task[taskIndex].text = ''
+  else task.splice(taskIndex, 1)
 }

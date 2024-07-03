@@ -22,7 +22,12 @@
       <template #tasks>
         <draggable class="dragArea list-none" :list="categories[index].Tasks">
           <li v-for="(task, taskIndex) in categories[index].Tasks" :key="taskIndex">
-            <input type="checkbox" :id="'task_' + taskIndex" v-model="task.isCompleted" />
+            <input
+              type="checkbox"
+              class="border-1 border-radius-1/2"
+              :id="'task_' + taskIndex"
+              v-model="task.isCompleted"
+            />
             <input
               class="border-none bg-transparent w-4/5 ml-2 text-xs"
               type="text"
@@ -38,7 +43,7 @@
             />
             <button
               @click="deleteTask(categories[index].Tasks, taskIndex)"
-              v-if="categories[index].Tasks.length > 1"
+              v-if="categories[index].isDeleting && categories[index].Tasks.length > 1"
               class="delete"
             >
               ❌
@@ -47,9 +52,17 @@
         </draggable>
       </template>
       <template #footer>
-        <div>
+        <div class="flex justify-between">
+          <div v-if="categories[index].Tasks.length > 1">
+            <button
+              v-if="!categories[index].isDeleting && categories[index].Tasks.length > 1"
+              @click="categories[index].isDeleting = true"
+            >
+              🗑️
+            </button>
+            <button v-else @click="categories[index].isDeleting = false">🚫</button>
+          </div>
           <button
-            class="float-right"
             @click="addTask(categories[index])"
             v-if="categories[index].Tasks[categories[index].Tasks.length - 1].text != ''"
           >
