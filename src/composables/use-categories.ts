@@ -5,16 +5,17 @@ import { Task } from '../types/Task'
 export const tasks = ref<Task[]>([])
 
 export const categories = ref<Category[]>([])
+// const newTask = new Task;
 
 export function addCategory(title: string) {
-  if (title == '')
+  if (title === '')
     categories.value.push({
       title: 'New category',
-      Tasks: [{ text: '', isCompleted: false }],
+      tasks: [{ text: '', isCompleted: false }],
       isDeleting: false
     })
   else
-    categories.value.push({ title, Tasks: [{ text: '', isCompleted: false }], isDeleting: false })
+    categories.value.push({ title, tasks: [{ text: '', isCompleted: false }], isDeleting: false })
 }
 
 export function deleteCategory(category: Category) {
@@ -23,10 +24,10 @@ export function deleteCategory(category: Category) {
 }
 
 export function addTask(category: Category) {
-  category.Tasks?.push({ text: '', isCompleted: false })
-  console.log(category.Tasks)
+  category.tasks?.push({ text: '', isCompleted: false })
+  console.log(category.tasks)
 }
 export function deleteTask(task: Task[], taskIndex: number) {
-  if (task.length == 1) task[taskIndex].text = ''
+  if (task.length === 1) task[taskIndex].text = ''
   else task.splice(taskIndex, 1)
 }

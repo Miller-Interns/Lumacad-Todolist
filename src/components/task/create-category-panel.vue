@@ -15,7 +15,7 @@
 import { ref } from 'vue'
 import SetCategory from './set-category.vue'
 
-export const isShown = ref(true)
+export const isShown = ref(false)
 
 export default {
   components: {

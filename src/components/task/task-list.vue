@@ -2,6 +2,7 @@
   <div class="inline-flex" v-for="(category, index) in categories" :key="index">
     <CategoryItem class="min-h-fit resize-y overflow-auto" v-model="categories[index]">
       <template #category>
+        <!-- computed -->
         <input
           class="border-none bg-transparent w-4/5 ml-2 text-xs"
           type="text"
@@ -20,8 +21,8 @@
         <button class="delete" @click="deleteCategory(category)">❌</button>
       </template>
       <template #tasks>
-        <draggable class="dragArea list-none" :list="categories[index].Tasks">
-          <li v-for="(task, taskIndex) in categories[index].Tasks" :key="taskIndex">
+        <draggable class="dragArea list-none" :list="categories[index].tasks">
+          <li v-for="(task, taskIndex) in categories[index].tasks" :key="taskIndex">
             <input
               type="checkbox"
               class="border-1 border-radius-1/2"
@@ -42,8 +43,8 @@
               maxLength="24"
             />
             <button
-              @click="deleteTask(categories[index].Tasks, taskIndex)"
-              v-if="categories[index].isDeleting && categories[index].Tasks.length > 1"
+              @click="deleteTask(categories[index].tasks, taskIndex)"
+              v-if="categories[index].isDeleting && categories[index].tasks.length > 1"
               class="delete"
             >
               ❌
@@ -53,9 +54,9 @@
       </template>
       <template #footer>
         <div class="flex justify-between">
-          <div v-if="categories[index].Tasks.length > 1">
+          <div v-if="categories[index].tasks.length > 1">
             <button
-              v-if="!categories[index].isDeleting && categories[index].Tasks.length > 1"
+              v-if="!categories[index].isDeleting && categories[index].tasks.length > 1"
               @click="categories[index].isDeleting = true"
             >
               🗑️
@@ -64,7 +65,7 @@
           </div>
           <button
             @click="addTask(categories[index])"
-            v-if="categories[index].Tasks[categories[index].Tasks.length - 1].text != ''"
+            v-if="categories[index].tasks[categories[index].tasks.length - 1].text != ''"
           >
             ➕
           </button>
@@ -75,6 +76,7 @@
 </template>
 
 <script lang="ts">
+//use script setup
 import { defineComponent, watch } from 'vue'
 import { VueDraggableNext } from 'vue-draggable-next'
 import CategoryItem from './category-item.vue'
@@ -92,6 +94,7 @@ export default defineComponent({
     }
   },
   setup() {
+    // ibutang sa store
     const categoryForm = window.localStorage.getItem('categories')
 
     if (categoryForm) {
@@ -105,6 +108,8 @@ export default defineComponent({
       },
       { deep: true }
     )
+    //
+
     return {
       categories,
       CategoryItem,
