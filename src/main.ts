@@ -1,4 +1,3 @@
-import './output.css'
 import './assets/css/main.css'
 
 import { createApp } from 'vue'

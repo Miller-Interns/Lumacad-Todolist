@@ -6,10 +6,13 @@ export default {
   theme: {
     extend: {
       colors: {
-        black: "#000000",
-        sgreen: "#BFEA7C",
-        mgreen: "#9BCF53",
-        dgreen: "#416D19",
+        nice: {
+          a: "#23DD33",
+          b: "#1EBB2B",
+          c: "#189923",
+          d: "#13771B",
+          e: "#0E5514",
+        }
       }
     },
   },

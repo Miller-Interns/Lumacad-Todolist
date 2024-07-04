@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="w-11/12 h-fit border-3 m-4 p-4 border-2 border-mgreen rounded-xl bg-sgreen text-dgreen font-semibold"
-  >
+  <div class="w-11/12 h-fit border-3 m-4 p-4 border-2 rounded-xl font-semibold">
     <div class="flex h-fit justify-between">
       <div>
         <h1 class="mr-2 inline">Category name:</h1>
@@ -15,7 +13,7 @@
       </div>
 
       <div
-        class="flex px-4 w-fit h-6 text-xs text-center border-2 border-dgreen rounded-md bg-mgreen cursor-pointer"
+        class="flex px-4 w-fit h-6 text-xs text-center border-2 rounded-md cursor-pointer"
         @click="addCategory(categoryTitle), (isShown = false)"
       >
         Add <span class="ml-1" v-if="categoryTitle != ''"> {{ categoryTitle }} category</span>

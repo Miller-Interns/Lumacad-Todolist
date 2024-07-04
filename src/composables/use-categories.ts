@@ -27,6 +27,7 @@ export function addTask(category: Category) {
   category.tasks?.push({ text: '', isCompleted: false })
   console.log(category.tasks)
 }
+
 export function deleteTask(task: Task[], taskIndex: number) {
   if (task.length === 1) task[taskIndex].text = ''
   else task.splice(taskIndex, 1)

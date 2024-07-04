@@ -3,7 +3,7 @@
     <CreateCategory />
   </header>
   <main>
-    <TaskList/>
+    <TaskList />
   </main>
 </template>
 

@@ -1,13 +1,13 @@
 <template>
   <div
-    class="absolute block m-auto w-1/2 h-fit inset-0 bg-sgreen border-2 rounded-xl text-center p items-center justify-center border-dgreen"
+    class="absolute block m-auto w-1/2 h-fit inset-0 border-2 rounded-xl text-center p items-center justify-center"
   >
     <div>
       <h1 class="block font-bold m-2">{{ titleName }}</h1>
       <h1 class="block text-xs m-2">Today is: {{ today }}</h1>
     </div>
     <div class="block inset-0 m-2">
-      <RouterLink class="bg-mgreen border-2 rounded-xl p-1" to="/task">Go to app</RouterLink>
+      <RouterLink class="border-2 rounded-xl p-1" to="/task">Go to app</RouterLink>
     </div>
   </div>
 </template>

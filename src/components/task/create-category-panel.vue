@@ -1,8 +1,8 @@
 <template>
-  <div class="inset-y-0 w-11/12 h-12 border-3 m-4 p-4 border-2 border-mgreen rounded-xl bg-sgreen">
-    <h1 class="float-left text-dgreen font-bold -mt-2">Create Category</h1>
-    <div class="flex float-right w-12 rotate-90" v-bind:aria-expanded="isShown ? 'true' : 'false'">
-      <button @click="set">➕</button>
+  <div class="flex inset-y-0 w-11/12 h-auto border-3 m-4 p-6 border-2 rounded-xl justify-between">
+    <div class="font-bold -mt-2"><h1>Create Category</h1></div>
+    <div class="flex w-12 rotate-90" v-bind:aria-expanded="isShown ? 'true' : 'false'">
+      <button @click="toggleShow">➕</button>
     </div>
   </div>
 
@@ -22,10 +22,10 @@ export default {
     SetCategory
   },
   setup() {
-    const set = () => (isShown.value = !isShown.value)
+    const toggleShow = () => (isShown.value = !isShown.value)
     return {
       SetCategory,
-      set,
+      toggleShow,
       isShown
     }
   }
