@@ -1,6 +1,6 @@
 <template>
-  <div class="w-11/12 h-fit border-3 m-4 p-4 bg-white rounded-xl font-semibold">
-    <div class="flex h-fit justify-between">
+  <div class=" h-fit border-3 m-4 p-4 bg-nice-c rounded-md font-semibold shadow-xl">
+    <div class="flex h-fit justify-between p-2 bg-white rounded-md">
       <div>
         <h1 class="mr-2 inline h-auto items-center text-nice-a">Category name:</h1>
         <input

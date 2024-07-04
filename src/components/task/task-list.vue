@@ -1,66 +1,110 @@
 <template>
-  <div class="inline-flex" v-for="category in categories" :key="category">
-    <CategoryItem>
-      <template #header>
-        <input
-          class="border-none bg-transparent w-4/5 mr-3 text-xs text-black font-bold"
-          type="text"
-          maxLength="16"
-          v-model="category.title"
-        />
-        <button
-          class="relative float-right w-7 h-7 bg-transparent border-none"
-          v-if="category.isDeleting"
-          @click="deleteCategory(category)"
-        >
-          ❌
-        </button>
-      </template>
-      <template #content>
-        <li v-for="task in category.tasks" :key="task">
-          <!-- <input type="checkbox" style="{lineThrough: `${lineThrough}`}" /> -->
-          {{ task.text }}
-          test
-          <input type="text" maxLength="16" /></li
-      ></template>
-      <template #footer>
-        <input type="text" />
-        <div class="flex justify-between">
+  <draggable v-model="categories" @start="drag = true" @end="drag = false" item-key="category">
+    <div class="inline-flex" v-for="category of categories" :key="category.id">
+      <CategoryItem>
+        <template #header>
+          <input
+            class="border-none bg-transparent calc h-7 text-xs text-black font-bold"
+            type="text"
+            maxLength="16"
+            v-model="category.title"
+          />
           <button
-            class="rounded-md bg-nice-b"
-            v-if="!category.isDeleting"
-            @click="toggleDeleteTask(category)"
+            class="relative float-right bg-transparent border-none"
+            v-if="category.isDeleting"
+            @click="deleteCategory(category)"
           >
-            🗑️
+            ❌
           </button>
-          <button class="rounded-md bg-nice-b" v-else @click="toggleDeleteTask(category)">
-            🚫
-          </button>
-          <button
-            class="rounded-md bg-nice-b text-xs p-2 font-bold text-white"
-            @click="addTask(category)"
+        </template>
+
+        <template #content>
+          <draggable
+            v-model="category.tasks"
+            class="list-group"
+            @start="drag = true"
+            @end="drag = false"
+            item-key="task"
           >
-            Add new task
-          </button>
-        </div>
-      </template>
-    </CategoryItem>
-  </div>
+            <li
+              class="list-none flex justify-between"
+              v-for="task of category.tasks"
+              :key="task.id"
+            >
+              <input class="w-4" type="checkbox" v-model="task.isCompleted" />
+              <input
+                class="pl-2"
+                type="text"
+                maxLength="16"
+                v-model="task.text"
+                placeholder="New task..."
+                :style="markComplete(task.isCompleted)"
+              />
+              <button
+                class="w-1/12"
+                @click="deleteTask(category.tasks, task)"
+                v-if="category.isDeleting"
+              >
+                ❌
+              </button>
+            </li>
+          </draggable>
+        </template>
+
+        <template #footer>
+          <div class="flex justify-between mt-4">
+            <button
+              class="rounded-md bg-nice-b"
+              v-if="!category.isDeleting"
+              @click="toggleDelete(category)"
+            >
+              🗑️
+            </button>
+            <button class="rounded-md bg-nice-b" v-else @click="toggleDelete(category)">🚫</button>
+            <button
+              class="rounded-md bg-nice-b text-xs p-2 font-bold text-white"
+              @click="addTask(category)"
+            >
+              Add new task
+            </button>
+          </div>
+        </template>
+        <template #id>
+          <div class="uid">
+            {{ category.id }}
+          </div>
+        </template>
+      </CategoryItem>
+    </div>
+  </draggable>
 </template>
 
 <script setup lang="ts">
+import { computed, ref } from 'vue'
+import { VueDraggableNext } from 'vue-draggable-next'
 import CategoryItem from './category-item.vue'
-import { addTask, categories, deleteCategory } from '../../composables/use-categories'
+import { addTask, deleteTask, categories, deleteCategory } from '../../composables/use-categories'
 import { Category } from '../../types/Category'
 
-function toggleDeleteTask(category: Category) {
+let drag = ref(false)
+const draggable = VueDraggableNext
+
+function toggleDelete(category: Category) {
   category.isDeleting = !category.isDeleting
 }
 
-// function enableAddingTask(tasks: Task[]) {
-//   for (let task of tasks) {
-//     if (task.text === '') return false
-//   }
-//   return true
-// }
+const markComplete = (isCompleted: boolean) => {
+  return computed(() => ({
+    textDecoration: isCompleted ? 'line-through' : 'none'
+  })).value
+}
 </script>
+
+<style>
+.uid {
+  float: right;
+  color: gray;
+  font-size: 10px;
+  user-select: none;
+}
+</style>
