@@ -1,4 +1,4 @@
 export enum RouterName {
-  HOME = 'home',
-  TASK = 'task'
+  HOME = '/',
+  TASK = '/task'
 }

@@ -1,9 +1,7 @@
 <template>
-  <div class="flex inset-y-0 w-11/12 h-auto border-3 m-4 p-6 border-2 rounded-xl justify-between">
-    <div class="font-bold -mt-2"><h1>Create Category</h1></div>
-    <div class="flex w-12 rotate-90" v-bind:aria-expanded="isShown ? 'true' : 'false'">
-      <button @click="toggleShow">➕</button>
-    </div>
+  <div class="flex inset-y-0 w-11/12 h-auto m-4 p-4 rounded-xl justify-between bg-white">
+    <div class="font-bold text-nice-a text-xl"><h1>Create Category</h1></div>
+    <button @click="toggleShow" :style="isRotated">➕</button>
   </div>
 
   <div v-if="isShown">
@@ -11,23 +9,17 @@
   </div>
 </template>
 
-<script lang="ts">
-import { ref } from 'vue'
+<script setup lang="ts">
+import { ref, computed } from 'vue'
 import SetCategory from './set-category.vue'
 
-export const isShown = ref(false)
+const isShown = ref(true)
 
-export default {
-  components: {
-    SetCategory
-  },
-  setup() {
-    const toggleShow = () => (isShown.value = !isShown.value)
-    return {
-      SetCategory,
-      toggleShow,
-      isShown
-    }
-  }
+const isRotated = computed(() => {
+  return isShown.value ? { rotate: '45deg' } : { rotate: '90deg', transition: 'transform(rotate)' }
+})
+
+function toggleShow() {
+  isShown.value = !isShown.value
 }
 </script>

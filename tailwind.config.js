@@ -7,11 +7,12 @@ export default {
     extend: {
       colors: {
         nice: {
-          a: "#23DD33",
-          b: "#1EBB2B",
-          c: "#189923",
-          d: "#13771B",
-          e: "#0E5514",
+          a: "#850F8D",
+          b: "#C738BD",
+          c: "#E49BFF",
+          d: "#F8F9D7",
+          e: "#320637",
+          f: "#D6A8D6"
         }
       }
     },

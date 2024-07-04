@@ -1,69 +1,45 @@
 <template>
-  <div class="p-4 min-w-max min-h-28 h-auto border-2 rounded-xl m-2">
+  <div class="p-4 max-w-1/10 min-h-28 h-auto rounded-xl m-2 bg-white">
     <div class="content">
-      <div class="flex border-2 rounded-md p-1 pl-3 mb-2" id="heading">
-        <h3>
-          <input
-            class="border-none bg-transparent w-4/5 ml-2 text-xs"
-            type="text"
-            :id="category.title"
-            v-bind:style="{
-              background: 'transparent',
-              border: 'none',
-              'font-size': '24px',
-              'font-weight': 'bold',
-              width: '80%',
-              bottom: '0px'
-            }"
-            maxLength="16"
-          />
-          <button class="delete" @click="deleteCategory(category)">❌</button>
-        </h3>
+      <div class="flex rounded-md p-2 pl-3 mb-2 bg-nice-c justify-between">
+        <slot name="header"> </slot>
       </div>
-      <div class="block" id="details">
-        <p class="grid grid-rows-1">
-          <draggable class="dragArea list-none" :list="category.tasks">
-            <li v-for="(task, taskIndex) in category.tasks" :key="taskIndex">
-              <input
-                type="checkbox"
-                class="border-1 border-radius-1/2"
-                :id="'task_' + taskIndex"
-                v-model="task.isCompleted"
-              />
-              <input
-                class="border-none bg-transparent w-4/5 ml-2 text-xs"
-                type="text"
-                :for="'item_' + taskIndex"
-                :style="
-                  task.isCompleted
-                    ? { 'text-decoration-line': 'line-through' }
-                    : { 'text-decoration-line': 'none' }
-                "
-                v-model="task.text"
-                placeholder="New task..."
-                maxLength="24"
-              />
-              <button
-                @click="deleteTask(category.tasks, taskIndex)"
-                v-if="category.isDeleting && category.tasks.length > 1"
-                class="delete"
-              >
-                ❌
-              </button>
-            </li>
-          </draggable>
-        </p>
+
+      <div class="block rounded-md p-2 pl-3 mb-2 bg-nice-c">
+        <slot name="tasks"> </slot>
+        <slot name="footer"> </slot>
+      </div>
+      <!-- <div class="block" id="details">
+        
         <div>
-          <slot name="footer"></slot>
+          <div class="flex justify-between">
+            <div v-if="category.tasks.length > 1">
+              <button v-if="!category.isDeleting" @click="toggleDelete">🗑️</button>
+              <button v-else @click="toggleDelete">🚫</button>
+            </div>
+            <button
+              @click="addTask(category)"
+              v-if="category.tasks[category.tasks.length - 1].text != ''"
+            >
+              ➕
+            </button>
+          </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { deleteCategory, deleteTask } from '../../composables/use-categories'
+// import { VueDraggableNext } from 'vue-draggable-next'
+import { computed } from 'vue'
+// import { deleteCategory, addTask, deleteTask } from '../../composables/use-categories'
 import { Category } from '../../types/Category'
+import { Task } from '../../types/Task'
 
-let category: Category
+import { deleteCategory } from '../../composables/use-categories'
+
+// const canBeDeleted = computed(() => {
+//   return category.isDeleting && category.tasks.length > 1
+// })
 </script>

@@ -1,22 +1,46 @@
 <template>
-  <div class="inline-flex" v-for="(category, index) in categories" :key="index">
-    <CategoryItem class="min-h-fit resize-y overflow-auto">
+  <div class="inline-flex" v-for="category in categories" :key="category">
+    <CategoryItem>
+      <template #header>
+        <input
+          class="border-none bg-transparent w-4/5 mr-3 text-xs text-black font-bold"
+          type="text"
+          maxLength="16"
+          v-model="category.title"
+        />
+        <button
+          class="relative float-right w-7 h-7 bg-transparent border-none"
+          v-if="category.isDeleting"
+          @click="deleteCategory(category)"
+        >
+          ❌
+        </button>
+      </template>
+      <template #content>
+        <li v-for="task in category.tasks" :key="task">
+          <!-- <input type="checkbox" style="{lineThrough: `${lineThrough}`}" /> -->
+          {{ task.text }}
+          test
+          <input type="text" maxLength="16" /></li
+      ></template>
       <template #footer>
+        <input type="text" />
         <div class="flex justify-between">
-          <div v-if="categories[index].tasks.length > 1">
-            <button
-              v-if="!categories[index].isDeleting && categories[index].tasks.length > 1"
-              @click="categories[index].isDeleting = true"
-            >
-              🗑️
-            </button>
-            <button v-else @click="categories[index].isDeleting = false">🚫</button>
-          </div>
           <button
-            @click="addTask(categories[index])"
-            v-if="categories[index].tasks[categories[index].tasks.length - 1].text != ''"
+            class="rounded-md bg-nice-b"
+            v-if="!category.isDeleting"
+            @click="toggleDeleteTask(category)"
           >
-            ➕
+            🗑️
+          </button>
+          <button class="rounded-md bg-nice-b" v-else @click="toggleDeleteTask(category)">
+            🚫
+          </button>
+          <button
+            class="rounded-md bg-nice-b text-xs p-2 font-bold text-white"
+            @click="addTask(category)"
+          >
+            Add new task
           </button>
         </div>
       </template>
@@ -25,25 +49,18 @@
 </template>
 
 <script setup lang="ts">
-//use script setup
-import { watch } from 'vue'
-import { VueDraggableNext } from 'vue-draggable-next'
 import CategoryItem from './category-item.vue'
+import { addTask, categories, deleteCategory } from '../../composables/use-categories'
+import { Category } from '../../types/Category'
 
-import { categories } from '../../composables/use-categories'
-
-const enabled = true
-const dragging = false
-</script>
-
-<style scoped>
-.delete {
-  position: relative;
-  place-content: center;
-  float: right;
-  width: 28px;
-  height: 28px;
-  background: transparent;
-  border: none;
+function toggleDeleteTask(category: Category) {
+  category.isDeleting = !category.isDeleting
 }
-</style>
+
+// function enableAddingTask(tasks: Task[]) {
+//   for (let task of tasks) {
+//     if (task.text === '') return false
+//   }
+//   return true
+// }
+</script>

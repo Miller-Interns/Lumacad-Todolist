@@ -2,20 +2,24 @@ import { ref } from 'vue'
 import { Category } from '../types/Category'
 import { Task } from '../types/Task'
 
-export const tasks = ref<Task[]>([])
+export let tasks: Task[]
 
 export const categories = ref<Category[]>([])
-// const newTask = new Task;
+
+const newTask: Task = { text: '', isCompleted: false }
+
+const newCategory: Category = { title: '', tasks: [newTask], isDeleting: false }
 
 export function addCategory(title: string) {
-  if (title === '')
-    categories.value.push({
-      title: 'New category',
-      tasks: [{ text: '', isCompleted: false }],
-      isDeleting: false
-    })
-  else
-    categories.value.push({ title, tasks: [{ text: '', isCompleted: false }], isDeleting: false })
+  for (const c of categories.value) {
+    if (title === c.title) {
+      alert(`Category ${title} already exists`)
+      return
+    }
+  }
+  newCategory.title = title === '' ? 'New category' : title
+
+  categories.value.push(newCategory)
 }
 
 export function deleteCategory(category: Category) {
