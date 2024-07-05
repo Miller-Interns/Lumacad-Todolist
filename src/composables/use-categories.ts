@@ -7,21 +7,25 @@ export let tasks: Task[]
 
 export const categories = ref<Category[]>([])
 
-let nextCategoryId = 1;
-let nextTaskId = 1;
+let nextCategoryId = 1
+let nextTaskId = 1
 
 function generateUniqueId(baseId: number): string {
-  return `${baseId}_${Date.now()}`;
+  return `${baseId}_${Date.now()}`
 }
 
-function createNewTask(): Task { 
-  return {id: generateUniqueId(nextTaskId++), text: '', isCompleted: false }
+function createNewTask(): Task {
+  return { id: generateUniqueId(nextTaskId++), text: '', isCompleted: false }
 }
 
 function createNewCategory(title: string): Category {
-  return {id: generateUniqueId(nextCategoryId++), title: title, tasks: [createNewTask()], isDeleting: false }
+  return {
+    id: generateUniqueId(nextCategoryId++),
+    title: title,
+    tasks: [createNewTask()],
+    isDeleting: false
+  }
 }
-  
 
 export function addCategory(title: string) {
   for (const c of categories.value) {
@@ -30,31 +34,16 @@ export function addCategory(title: string) {
       return
     }
   }
-  let categoryTitle = title === '' ? 'New category' : title
+  const categoryTitle = title === '' ? 'New category' : title
 
-  if (categoryTitle.includes('New Category'))
-  {
-    let newCategoryNumber = 1;
-    for (const c of categories.value){
-      if (c.title.includes('New category'))
-      if (`${categoryTitle} ${newCategoryNumber}` !== c.title)
-      {
-
-      }
-      else
-      newCategoryNumber++
-    }
-    categoryTitle = `${categoryTitle} ${newCategoryNumber}`
-  }
   const newCategory = createNewCategory(categoryTitle)
   categories.value.push(newCategory)
-  notify(`Category "${categoryTitle}" created!`, 3);
+  notify(`Category "${categoryTitle}" created!`, 3)
 }
 
 export function deleteCategory(category: Category) {
   categories.value = categories.value.filter((c: Category) => c !== category)
-  notify(`Category "${category.title}" deleted!`, 3);
-
+  notify(`Category "${category.title}" deleted!`, 3)
 }
 
 export function addTask(category: Category) {
@@ -63,7 +52,7 @@ export function addTask(category: Category) {
 
 export function deleteTask(tasks: Task[], task: Task) {
   const taskIndex = tasks.indexOf(task)
-  if (taskIndex > -1){
+  if (taskIndex > -1) {
     tasks.splice(tasks.indexOf(task), 1)
   }
 }
