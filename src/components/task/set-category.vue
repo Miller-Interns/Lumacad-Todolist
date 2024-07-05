@@ -1,5 +1,5 @@
 <template>
-  <div class=" h-fit border-3 m-4 p-4 bg-nice-c rounded-md font-semibold shadow-xl">
+  <div class="h-fit border-3 m-4 p-4 bg-nice-c rounded-md font-semibold shadow-xl">
     <div class="flex h-fit justify-between p-2 bg-white rounded-md">
       <div>
         <h1 class="mr-2 inline h-auto items-center text-nice-a">Category name:</h1>
@@ -17,7 +17,7 @@
         class="flex p-4 w-fit h-fit text-xs text-center rounded-md cursor-pointer bg-nice-a text-white"
         @click="addCategory(categoryTitle)"
       >
-        Add <span class="ml-1" v-if="categoryTitle != ''"> {{ categoryTitle }} category</span>
+        Add <span class="ml-1" v-if="!isEmpty(categoryTitle)"> {{ categoryTitle }} category</span>
       </button>
     </div>
   </div>
@@ -26,6 +26,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { addCategory } from '../../composables/use-categories'
+
+function isEmpty(text: string) {
+  return text == ''
+}
 
 const categoryTitle = ref('')
 </script>

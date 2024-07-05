@@ -98,7 +98,7 @@ function toggleDelete(category: Category) {
 }
 
 const markComplete = (isCompleted: boolean) => {
-  return computed(() => ({
+  return computed(() => ({1
     textDecoration: isCompleted ? 'line-through' : 'none'
   })).value
 }
