@@ -5,14 +5,16 @@
       <h1 class="block text-xs text-white my-4">Today is: {{ today }}</h1>
     </div>
     <div class="block inset-0 my-4">
-      <RouterLink class="rounded-md p-2 bg-nice-a text-white" to="/task">Go to app</RouterLink>
+      <RouterLink class="rounded-md p-2 bg-nice-a text-white" :to="RouterName.TASK">Go to app</RouterLink>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { RouterLink } from 'vue-router'
-let titleName = 'Ark Faith Lumacad'
-const now: Date = new Date()
-const today = now.toDateString()
+import { RouterLink } from 'vue-router';
+import { RouterName } from '../../types/enums/RouterName';
+
+let titleName = 'Ark Faith Lumacad';
+const now: Date = new Date();
+const today = now.toDateString();
 </script>
