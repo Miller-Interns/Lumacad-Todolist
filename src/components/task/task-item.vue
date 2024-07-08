@@ -1,5 +1,5 @@
 <template>
-  <input class="w-4" type="checkbox" v-model="isTaskCompleted" />
+  <input class="w-4" type="checkbox" v-model="task.isCompleted" />
   <input
     class="pl-2"
     type="text"
@@ -7,6 +7,7 @@
     v-model="taskText"
     placeholder="New task..."
     :style="markComplete()"
+    :disabled="isTaskCompleted"
   />
   <button class="w-1/12" @click="deleteTask(category.tasks, task)" v-if="category.isDeleting">
     ❌
@@ -38,3 +39,9 @@ const taskText = computed(() => {
   return props.task.text
 })
 </script>
+
+<style>
+*:disabled {
+  background: transparent;
+}
+</style>

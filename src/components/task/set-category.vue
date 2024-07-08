@@ -7,7 +7,7 @@
           class="bg-gray-50 p-3"
           type="text"
           id="category-name"
-          v-model="categoryTitle"
+          v-model="title"
           maxlength="16"
           placeholder="New category"
         />
@@ -15,9 +15,9 @@
 
       <button
         class="flex p-4 w-fit h-fit text-xs text-center rounded-md cursor-pointer bg-nice-a text-white"
-        @click="addCategory(categoryTitle)"
+        @click="addCategory(title)"
       >
-        Add <span class="ml-1" v-if="!isEmpty(categoryTitle)"> {{ categoryTitle }} category</span>
+        Add <span class="ml-1" v-if="!isEmpty(title)"> {{ title }} category</span>
       </button>
     </div>
   </div>
@@ -31,5 +31,5 @@ function isEmpty(text: string) {
   return text == ''
 }
 
-const categoryTitle = ref('')
+const title = ref('')
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <header class="">
+  <header>
     <CreateCategory />
   </header>
   <main>

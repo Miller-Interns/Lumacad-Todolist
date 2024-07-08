@@ -5,11 +5,11 @@
         class="border-none bg-transparent calc h-7 text-xs text-black font-bold"
         type="text"
         maxLength="16"
-        v-model="categoryTitle"
+        v-model="title"
       />
       <button
         class="relative float-right bg-transparent border-none"
-        v-if="category.isDeleting"
+        v-if="isDeleting"
         @click="deleteCategory(category)"
       >
         ❌
@@ -17,18 +17,18 @@
     </div>
     <div class="block rounded-md p-3 pl-3 mb-2 bg-white">
       <draggable
-        v-model="categoryTasks"
+        v-model="tasks"
         class="list-group"
         @start="drag = true"
         @end="drag = false"
         item-key="task"
       >
-        <li class="list-none flex justify-between" v-for="task of category.tasks" :key="task.id">
+        <li class="list-none flex justify-between" v-for="task of tasks" :key="task.id">
           <TaskItem :task="task" :category="category" />
         </li>
       </draggable>
       <div class="flex justify-between mt-4">
-        <button class="rounded-md bg-nice-b" v-if="!category.isDeleting" @click="emitToggleDelete">
+        <button class="rounded-md bg-nice-b" v-if="!isDeleting" @click="emitToggleDelete">
           🗑️
         </button>
         <button class="rounded-md bg-nice-b" v-else @click="emitToggleDelete">🚫</button>
@@ -42,7 +42,7 @@
     </div>
     <div>
       <div class="uid">
-        {{ category.id }}
+        {{ id }}
       </div>
     </div>
   </div>
@@ -62,12 +62,20 @@ const props = defineProps<{
   category: Category
 }>()
 
-const categoryTitle = computed(() => {
+const title = computed(() => {
   return props.category.title
 })
 
-const categoryTasks = computed(() => {
+const tasks = computed(() => {
   return props.category.tasks
+})
+
+const isDeleting = computed(() => {
+  return props.category.isDeleting
+})
+
+const id = computed(() => {
+  return props.category.id
 })
 
 const emit = defineEmits(['toggle-delete'])
