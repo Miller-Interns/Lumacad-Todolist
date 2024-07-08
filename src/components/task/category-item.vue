@@ -5,7 +5,7 @@
         class="border-none bg-transparent calc h-7 text-xs text-black font-bold"
         type="text"
         maxLength="16"
-        v-model="category.title"
+        v-model="categoryTitle"
       />
       <button
         class="relative float-right bg-transparent border-none"
@@ -17,14 +17,14 @@
     </div>
     <div class="block rounded-md p-3 pl-3 mb-2 bg-white">
       <draggable
-        v-model="category.tasks"
+        v-model="categoryTasks"
         class="list-group"
         @start="drag = true"
         @end="drag = false"
         item-key="task"
       >
         <li class="list-none flex justify-between" v-for="task of category.tasks" :key="task.id">
-          <TaskItem :task="task" :category="category"/>
+          <TaskItem :task="task" :category="category" />
         </li>
       </draggable>
       <div class="flex justify-between mt-4">
@@ -49,7 +49,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { VueDraggableNext } from 'vue-draggable-next'
 import { addTask, deleteCategory } from '../../composables/use-categories'
 import { Category } from '../../types/Category'
@@ -62,14 +62,19 @@ const props = defineProps<{
   category: Category
 }>()
 
+const categoryTitle = computed(() => {
+  return props.category.title
+})
+
+const categoryTasks = computed(() => {
+  return props.category.tasks
+})
+
 const emit = defineEmits(['toggle-delete'])
 
 function emitToggleDelete() {
   emit('toggle-delete')
 }
-
-
-
 </script>
 
 <style>
