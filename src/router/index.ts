@@ -6,13 +6,13 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: `/`,
-      name: RouterName.HOME,
+      path: '/',
+      name: '/home',
       component: TitleView
     },
     {
-      path: `/${RouterName.TASK}`,
-      name: RouterName.TASK,
+      path: '/task',
+      name: 'task',
       component: () => import('../pages/task-view.vue')
     }
   ]

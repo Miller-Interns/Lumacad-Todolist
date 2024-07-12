@@ -1,5 +1,5 @@
 <template>
-  <input class="w-4" type="checkbox" v-model="task.isCompleted" />
+  <input class="w-4" type="checkbox" v-model="props.task.isCompleted" />
   <input
     class="pl-2"
     type="text"
@@ -7,7 +7,7 @@
     v-model="taskText"
     placeholder="New task..."
     :style="markComplete()"
-    :disabled="isTaskCompleted"
+    :disabled="enableInput"
   />
   <button class="w-1/12" @click="deleteTask(category.tasks, task)" v-if="category.isDeleting">
     ❌
@@ -27,16 +27,22 @@ const props = defineProps<{
 
 const markComplete = () => {
   return computed(() => ({
-    textDecoration: props.task.isCompleted ? 'line-through' : 'none'
+    textDecoration: props.task.isCompleted ? 'line-through' : 'none',
+    color: props.task.isCompleted ? 'rgb(228 153 255)' : 'black'
   })).value
 }
 
-const isTaskCompleted = computed(() => {
+const enableInput = computed(() => {
   return props.task.isCompleted
 })
 
-const taskText = computed(() => {
-  return props.task.text
+const taskText = computed({
+  get() {
+    return props.task.text
+  },
+  set(v) {
+    this.$emit('taskName', v)
+  }
 })
 </script>
 
