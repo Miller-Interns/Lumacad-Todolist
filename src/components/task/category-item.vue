@@ -1,23 +1,95 @@
 <template>
-  <div
-    class="p-4 min-w-max min-h-28 h-auto border-2 border-mgreen rounded-xl bg-sgreen text-dgreen m-2"
-  >
-    <div class="content">
-      <div class="flex border-2 border-mgreen rounded-md p-1 pl-3 mb-2" id="heading">
-        <h3>
-          <slot name="category"></slot>
-        </h3>
+  <div class="p-3 max-w-1/10 min-h-28 h-auto rounded-xl m-2 bg-nice-c shadow-xl">
+    <div class="flex rounded-md p-3 pl-3 mb-3 bg-white justify-between">
+      <input
+        class="border-none bg-transparent calc h-7 text-xs text-black font-bold"
+        type="text"
+        maxLength="16"
+        v-model="title"
+      />
+      <button
+        class="relative float-right bg-transparent border-none"
+        v-if="isDeleting"
+        @click="deleteCategory(category)"
+      >
+        ❌
+      </button>
+    </div>
+    <div class="block rounded-md p-3 pl-3 mb-2 bg-white">
+      <draggable
+        v-model="tasks"
+        class="list-group"
+        @start="drag = true"
+        @end="drag = false"
+        item-key="task"
+      >
+        <li class="list-none flex justify-between" v-for="task of tasks" :key="task.id">
+          <TaskItem :task="task" :category="category" />
+        </li>
+      </draggable>
+      <div class="flex justify-between mt-4">
+        <button class="rounded-md bg-nice-b" v-if="!isDeleting" @click="emitToggleDelete">
+          🗑️
+        </button>
+        <button class="rounded-md bg-nice-b" v-else @click="emitToggleDelete">🚫</button>
+        <button
+          class="rounded-md bg-nice-b text-xs p-2 font-bold text-white"
+          @click="addTask(category)"
+        >
+          Add new task
+        </button>
       </div>
-      <div class="block" id="details">
-        <p class="grid grid-rows-1">
-          <slot name="tasks"></slot>
-        </p>
-        <div>
-          <slot name="footer"></slot>
-        </div>
+    </div>
+    <div>
+      <div class="uid">
+        {{ id }}
       </div>
     </div>
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref, computed } from 'vue'
+import { VueDraggableNext } from 'vue-draggable-next'
+import { addTask, deleteCategory } from '../../composables/use-categories'
+import { Category } from '../../types/Category'
+import TaskItem from './task-item.vue'
+
+let drag = ref(false)
+const draggable = VueDraggableNext
+
+const props = defineProps<{
+  category: Category
+}>()
+
+const title = computed(() => {
+  return props.category.title
+})
+
+const tasks = computed(() => {
+  return props.category.tasks
+})
+
+const isDeleting = computed(() => {
+  return props.category.isDeleting
+})
+
+const id = computed(() => {
+  return props.category.id
+})
+
+const emit = defineEmits(['toggle-delete'])
+
+function emitToggleDelete() {
+  emit('toggle-delete')
+}
+</script>
+
+<style>
+.uid {
+  float: right;
+  color: gray;
+  font-size: 10px;
+  user-select: none;
+}
+</style>

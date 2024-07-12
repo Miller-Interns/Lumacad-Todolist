@@ -1,33 +1,58 @@
 import { ref } from 'vue'
 import { Category } from '../types/Category'
 import { Task } from '../types/Task'
+import { notify } from './use-toast'
 
-export const tasks = ref<Task[]>([])
+export let tasks: Task[]
 
 export const categories = ref<Category[]>([])
-// const newTask = new Task;
+
+let nextCategoryId = 1
+let nextTaskId = 1
+
+function generateUniqueId(baseId: number): string {
+  return `${baseId}_${Date.now()}`
+}
+
+function createNewTask(): Task {
+  return { id: generateUniqueId(nextTaskId++), text: '', isCompleted: false }
+}
+
+function createNewCategory(title: string): Category {
+  return {
+    id: generateUniqueId(nextCategoryId++),
+    title: title,
+    tasks: [createNewTask()],
+    isDeleting: false
+  }
+}
 
 export function addCategory(title: string) {
-  if (title === '')
-    categories.value.push({
-      title: 'New category',
-      tasks: [{ text: '', isCompleted: false }],
-      isDeleting: false
-    })
-  else
-    categories.value.push({ title, tasks: [{ text: '', isCompleted: false }], isDeleting: false })
+  for (const c of categories.value) {
+    if (title === c.title) {
+      alert(`Category ${title} already exists`)
+      return
+    }
+  }
+  const categoryTitle = title === '' ? 'New category' : title
+
+  const newCategory = createNewCategory(categoryTitle)
+  categories.value.push(newCategory)
+  notify(`Category "${categoryTitle}" created!`, 3)
 }
 
 export function deleteCategory(category: Category) {
-  const filtersList = this.categories.filter((c: Category) => c !== category)
-  this.categories = filtersList
+  categories.value = categories.value.filter((c: Category) => c !== category)
+  notify(`Category "${category.title}" deleted!`, 3)
 }
 
 export function addTask(category: Category) {
-  category.tasks?.push({ text: '', isCompleted: false })
-  console.log(category.tasks)
+  category.tasks.push(createNewTask())
 }
-export function deleteTask(task: Task[], taskIndex: number) {
-  if (task.length === 1) task[taskIndex].text = ''
-  else task.splice(taskIndex, 1)
+
+export function deleteTask(tasks: Task[], task: Task) {
+  const taskIndex = tasks.indexOf(task)
+  if (taskIndex > -1) {
+    tasks.splice(tasks.indexOf(task), 1)
+  }
 }

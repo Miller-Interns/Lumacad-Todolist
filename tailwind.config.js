@@ -6,10 +6,15 @@ export default {
   theme: {
     extend: {
       colors: {
-        pinya: "#FFFFFF",
-        sgreen: "#BFEA7C",
-        mgreen: "#9BCF53",
-        dgreen: "#416D19",
+        nice: {
+          a: "#850F8D",
+          b: "#C738BD",
+          c: "#E49BFF",
+          d: "#3A1D3A",
+          e: "#320637",
+          f: "#D6A8D6"
+        },
+        
       }
     },
   },

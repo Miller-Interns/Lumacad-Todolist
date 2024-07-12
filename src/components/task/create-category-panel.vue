@@ -1,8 +1,8 @@
 <template>
-  <div class="inset-y-0 w-11/12 h-12 border-3 m-4 p-4 border-2 border-mgreen rounded-xl bg-sgreen">
-    <h1 class="float-left text-dgreen font-bold -mt-2">Create Category</h1>
-    <div class="flex float-right w-12 rotate-90" v-bind:aria-expanded="isShown ? 'true' : 'false'">
-      <button @click="set">➕</button>
+  <div class="inset-y-0 h-fit m-4 p-4 rounded-md bg-nice-c shadow-xl">
+    <div class="flex justify-between w-full p-2 bg-white rounded-md">
+      <div class="font-bold text-nice-a text-xl"><h1>Create Category</h1></div>
+      <button class="transition" :style="rotation" @click="toggleShow">➕</button>
     </div>
   </div>
 
@@ -11,23 +11,17 @@
   </div>
 </template>
 
-<script lang="ts">
-import { ref } from 'vue'
+<script setup lang="ts">
+import { ref, computed } from 'vue'
 import SetCategory from './set-category.vue'
 
-export const isShown = ref(false)
+const isShown = ref(false)
 
-export default {
-  components: {
-    SetCategory
-  },
-  setup() {
-    const set = () => (isShown.value = !isShown.value)
-    return {
-      SetCategory,
-      set,
-      isShown
-    }
-  }
+function toggleShow() {
+  isShown.value = !isShown.value
 }
+
+const rotation = computed(() => {
+  return isShown.value ? { transform: 'rotate(45deg)' } : { transform: 'rotate(90deg)' }
+})
 </script>

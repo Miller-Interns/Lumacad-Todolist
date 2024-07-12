@@ -1,41 +1,35 @@
 <template>
-  <div
-    class="w-11/12 h-fit border-3 m-4 p-4 border-2 border-mgreen rounded-xl bg-sgreen text-dgreen font-semibold"
-  >
-    <div class="flex h-fit justify-between">
+  <div class="h-fit border-3 m-4 p-4 bg-nice-c rounded-md font-semibold shadow-xl">
+    <div class="flex h-fit justify-between p-2 bg-white rounded-md">
       <div>
-        <h1 class="mr-2 inline">Category name:</h1>
+        <h1 class="mr-2 inline h-auto items-center text-nice-a">Category name:</h1>
         <input
+          class="bg-gray-50 p-3"
           type="text"
           id="category-name"
-          v-model="categoryTitle"
+          v-model="title"
           maxlength="16"
           placeholder="New category"
         />
       </div>
 
-      <div
-        class="flex px-4 w-fit h-6 text-xs text-center border-2 border-dgreen rounded-md bg-mgreen cursor-pointer"
-        @click="addCategory(categoryTitle), (isShown = false)"
+      <button
+        class="flex p-4 w-fit h-fit text-xs text-center rounded-md cursor-pointer bg-nice-a text-white"
+        @click="addCategory(title)"
       >
-        Add <span class="ml-1" v-if="categoryTitle != ''"> {{ categoryTitle }} category</span>
-      </div>
+        Add <span class="ml-1" v-if="!isEmpty(title)"> {{ title }} category</span>
+      </button>
     </div>
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
+import { ref } from 'vue'
 import { addCategory } from '../../composables/use-categories'
-import { isShown } from './create-category-panel.vue'
 
-export default {
-  data() {
-    return {
-      categoryTitle: ''
-    }
-  },
-  setup() {
-    return { addCategory, isShown }
-  }
+function isEmpty(text: string) {
+  return text == ''
 }
+
+const title = ref('')
 </script>

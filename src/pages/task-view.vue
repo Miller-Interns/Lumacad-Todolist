@@ -1,9 +1,9 @@
 <template>
-  <header class="">
+  <header>
     <CreateCategory />
   </header>
   <main>
-    <TaskList/>
+    <TaskList />
   </main>
 </template>
 
